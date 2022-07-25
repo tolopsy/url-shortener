@@ -1,4 +1,4 @@
-module github.com/tolopsy/shortener
+module github.com/tolopsy/url-shortener
 
 go 1.17
 
