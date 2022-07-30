@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/joho/godotenv"
 	http_api "github.com/tolopsy/url-shortener/api"
 	m_repo "github.com/tolopsy/url-shortener/repository/mongodb"
 	r_repo "github.com/tolopsy/url-shortener/repository/redis"
@@ -18,6 +19,8 @@ import (
 )
 
 func main() {
+	godotenv.Load() // load .env file if exists
+
 	repo := chooseRepo()
 	service := shortener.NewRedirectService(repo)
 	handler := http_api.NewHandler(service)
