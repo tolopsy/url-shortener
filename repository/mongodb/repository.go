@@ -42,10 +42,10 @@ func NewMongoRepository(mongoURL, mongoDB, mongoCollection string, mongoTimeout 
 	}
 
 	repo := &mongoRepository{
-		timeout:  timeout,
-		database: mongoDB,
+		timeout:    timeout,
+		database:   mongoDB,
 		collection: mongoCollection,
-		client:   client,
+		client:     client,
 	}
 	return repo, nil
 }
@@ -56,7 +56,7 @@ func (repo *mongoRepository) Find(code string) (*shortener.Redirect, error) {
 
 	redirect := &shortener.Redirect{}
 	collection := repo.client.Database(repo.database).Collection(repo.collection)
-	filter := bson.M{code: code}
+	filter := bson.M{"code": code}
 	err := collection.FindOne(ctx, filter).Decode(redirect)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -75,8 +75,8 @@ func (repo *mongoRepository) Store(redirect *shortener.Redirect) error {
 	_, err := collection.InsertOne(
 		ctx,
 		bson.M{
-			"code": redirect.Code,
-			"url": redirect.URL,
+			"code":       redirect.Code,
+			"url":        redirect.URL,
 			"created_at": redirect.CreatedAt,
 		},
 	)

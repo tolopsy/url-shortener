@@ -56,7 +56,7 @@ func (r *redisRepository) Find(code string) (*shortener.Redirect, error) {
 	redirect := &shortener.Redirect{
 		Code: data["code"],
 		CreatedAt: createdAt,
-		URL: data["URL"],
+		URL: data["url"],
 	}
 	return redirect, err
 }
